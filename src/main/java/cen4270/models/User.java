@@ -11,12 +11,15 @@ public class User {
 
     private Region region;
 
-    public User(String firstName, String lastName, String email, CreditCard creditCard, Region region) {
+    private boolean isPremiumUser;
+
+    public User(String firstName, String lastName, String email, CreditCard creditCard, Region region ,boolean isPremiumUser) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.creditCard = creditCard;
         this.region = region;
+        this.isPremiumUser = isPremiumUser;
     }
 
     public String getFirstName() {
@@ -57,5 +60,13 @@ public class User {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public boolean isPremiumUser() {
+        return isPremiumUser;
+    }
+
+    public void setPremiumUser(boolean premiumUser) {
+        isPremiumUser = premiumUser;
     }
 }
