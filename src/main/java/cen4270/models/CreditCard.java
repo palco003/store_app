@@ -7,12 +7,9 @@ public class CreditCard {
 
     private Date expirationDate;
 
-    private String securityCode;
-
-    public CreditCard(String number, Date expirationDate, String securityCode) {
+    public CreditCard(String number, Date expirationDate) {
         this.number = number;
         this.expirationDate = expirationDate;
-        this.securityCode = securityCode;
     }
 
     public String getNumber() {
@@ -29,13 +26,5 @@ public class CreditCard {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public String getSecurityCode() {
-        return securityCode;
-    }
-
-    public void setSecurityCode(String securityCode) {
-        this.securityCode = securityCode;
     }
 }

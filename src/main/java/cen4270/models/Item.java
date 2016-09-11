@@ -7,10 +7,13 @@ public class Item {
 
     private int price;
 
-    public Item(String ID, String name, int price) {
+    private int inventoryCount;
+
+    public Item(String ID, String name, int price, int inventoryCount) {
         this.ID = ID;
         this.name = name;
         this.price = price;
+        this.inventoryCount = inventoryCount;
     }
 
     public String getID() {
@@ -35,5 +38,13 @@ public class Item {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getInventoryCount() {
+        return inventoryCount;
+    }
+
+    public void setInventoryCount(int inventoryCount) {
+        this.inventoryCount = inventoryCount;
     }
 }
