@@ -1,38 +1,12 @@
-package cen4270.services;
+package cen4270.clients;
 
 import cen4270.exceptions.ChargeCreditCardException;
 import cen4270.models.CreditCard;
 
-import java.util.Date;
-
 /**
  * This service provides functionality to process transactions
  */
-public class BankService {
-    /**
-     * Verify if a credit card is valid
-     * @param creditCard The credit card to validate
-     * @return true if the credit card is valid. False, otherwise.
-     */
-    public boolean isCreditCardValid(CreditCard creditCard) {
-        if(creditCard.getNumber().length() != 16) {
-            System.out.println("Credit card length is not 16 digits!");
-            return false;
-        }
-
-        if(creditCard.getNumber().matches("\\[0-9\\]\\+$")) {
-            System.out.println("Credit card number must only consist of numbers");
-            return false;
-        }
-
-        if(creditCard.getExpirationDate().after(new Date())) {
-            System.out.println("Credit card is expired");
-            return false;
-        }
-
-        return true;
-    }
-
+public class BankClient {
     /**
      * Charges a credit card
      * @param creditCard The credit card to charge

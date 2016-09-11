@@ -1,23 +1,22 @@
 package cen4270.services;
 
+import cen4270.clients.BankClient;
 import cen4270.exceptions.RegisterUserException;
+import cen4270.models.CreditCard;
 import cen4270.models.User;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This service is used to manage user accounts
  */
 public class AccountService {
     private List<User> users;
-    private BankService bankService;
 
     public AccountService() {
         this.users = new LinkedList<User>();
-        this.bankService = new BankService();
     }
 
     /**
@@ -39,7 +38,7 @@ public class AccountService {
             throw new RegisterUserException(("Email address is not valid"));
         }
 
-        if(!bankService.isCreditCardValid(user.getCreditCard())) {
+        if(!isCreditCardValid(user.getCreditCard())) {
             throw new RegisterUserException(("Credit card is not valid"));
         }
 
@@ -59,5 +58,29 @@ public class AccountService {
         }
 
         return null;
+    }
+
+    /**
+     * Verify if a credit card is valid
+     * @param creditCard The credit card to validate
+     * @return true if the credit card is valid. False, otherwise.
+     */
+    public boolean isCreditCardValid(CreditCard creditCard) {
+        if(creditCard.getNumber().length() != 16) {
+            System.out.println("Credit card length is not 16 digits!");
+            return false;
+        }
+
+        if(creditCard.getNumber().matches("\\[0-9\\]\\+$")) {
+            System.out.println("Credit card number must only consist of numbers");
+            return false;
+        }
+
+        if(creditCard.getExpirationDate().after(new Date())) {
+            System.out.println("Credit card is expired");
+            return false;
+        }
+
+        return true;
     }
 }

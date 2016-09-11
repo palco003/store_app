@@ -1,4 +1,4 @@
-package cen4270.services;
+package cen4270.clients;
 
 import cen4270.exceptions.SendEmailException;
 import cen4270.models.Email;
@@ -6,7 +6,7 @@ import cen4270.models.Email;
 /**
  * This service is used to send emails
  */
-public class NotificationService {
+public class NotificationClient {
     /**
      * Sends an email
      * @param email The email to send

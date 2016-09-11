@@ -1,4 +1,4 @@
-package cen4270.services;
+package cen4270.clients;
 
 import cen4270.models.Item;
 
@@ -8,14 +8,14 @@ import java.util.Map;
 /**
  * This service is used to retrieve items from the store's inventory
  */
-public class InventoryService {
+public class InventoryClient {
     /**
      * The following map is used to simulate a database. A real implementation would
      * establish a connection to a database, like MySQL.
      */
     private Map<String, Item> database;
 
-    public InventoryService() {
+    public InventoryClient() {
         database = new HashMap<String, Item>();
 
         Item item1 = new Item("1", "Book", 5, 1);
