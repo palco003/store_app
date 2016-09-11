@@ -16,14 +16,17 @@ public class BankService {
      */
     public boolean isCreditCardValid(CreditCard creditCard) {
         if(creditCard.getNumber().length() != 16) {
+            System.out.println("Credit card length is not 16 digits!");
             return false;
         }
 
         if(creditCard.getNumber().matches("\\[0-9\\]\\+$")) {
+            System.out.println("Credit card number must only consist of numbers");
             return false;
         }
 
         if(creditCard.getExpirationDate().after(new Date())) {
+            System.out.println("Credit card is expired");
             return false;
         }
 

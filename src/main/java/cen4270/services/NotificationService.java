@@ -15,6 +15,10 @@ public class NotificationService {
     public void sendEmail(Email email) throws SendEmailException {
         System.out.println("Sending email...");
 
+        System.out.println("To: " + email.getTo());
+        System.out.println("Subject: " + email.getTitle());
+        System.out.println("Message: " + email.getMessage());
+
         try {
             // The following sleep is used to simulate the time taken to
             // send an email over the web. A real implementation would

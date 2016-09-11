@@ -39,7 +39,7 @@ public class AccountService {
             throw new RegisterUserException(("Email address is not valid"));
         }
 
-        if(bankService.isCreditCardValid(user.getCreditCard())) {
+        if(!bankService.isCreditCardValid(user.getCreditCard())) {
             throw new RegisterUserException(("Credit card is not valid"));
         }
 
@@ -52,7 +52,7 @@ public class AccountService {
      * @return The user or null, if the email does not belong to a registered user
      */
     public User getRegisteredUser(String email) {
-        for(int i = 1; i < users.size(); i++) {
+        for(int i = 0; i < users.size()-1; i++) {
             if(users.get(i).getEmail().equalsIgnoreCase(email)) {
                 return users.get(i);
             }

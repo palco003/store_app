@@ -45,6 +45,8 @@ public class PurchaseService {
         int totalPrice = calculatePrice(user, item);
         bankService.chargeCreditCard(user.getCreditCard(), totalPrice);
 
+        item.setInventoryCount(item.getInventoryCount() - quantity);
+
         notificationService.sendEmail(new Email(
                 user.getEmail(),
                 "Thank you for your purchase of " + item.getName() + "!",
