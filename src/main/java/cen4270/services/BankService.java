@@ -1,6 +1,6 @@
 package cen4270.services;
 
-import cen4270.exceptions.CannotChargeCreditCardException;
+import cen4270.exceptions.ChargeCreditCardException;
 import cen4270.models.CreditCard;
 
 import java.util.Date;
@@ -34,9 +34,9 @@ public class BankService {
      * Charges a credit card
      * @param creditCard The credit card to charge
      * @param amount The amount to charge the credit card
-     * @throws CannotChargeCreditCardException Exception thrown if the credit cannot be charged for any reason
+     * @throws ChargeCreditCardException Exception thrown if the credit cannot be charged for any reason
      */
-    public void chargeCreditCard(CreditCard creditCard, int amount) throws CannotChargeCreditCardException {
+    public void chargeCreditCard(CreditCard creditCard, int amount) throws ChargeCreditCardException {
         System.out.println("Charging a credit card. Amount: " + amount + "; Number: [Number omitted for security]...");
 
         try {

@@ -1,6 +1,6 @@
 package cen4270.services;
 
-import cen4270.exceptions.CannotSendEmailException;
+import cen4270.exceptions.SendEmailException;
 import cen4270.models.Email;
 
 /**
@@ -10,9 +10,9 @@ public class NotificationService {
     /**
      * Sends an email
      * @param email The email to send
-     * @throws CannotSendEmailException Exception thrown if the email cannot be sent
+     * @throws SendEmailException Exception thrown if the email cannot be sent
      */
-    public void sendEmail(Email email) throws CannotSendEmailException {
+    public void sendEmail(Email email) throws SendEmailException {
         System.out.println("Sending email...");
 
         try {

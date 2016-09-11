@@ -1,47 +1,49 @@
 package cen4270.services;
 
-import cen4270.exceptions.CannotRegisterUserException;
+import cen4270.exceptions.RegisterUserException;
 import cen4270.models.User;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * This service is used to manage user accounts
  */
 public class AccountService {
-    private Map<String, User> users;
+    private List<User> users;
     private BankService bankService;
 
     public AccountService() {
-        this.users = new HashMap<String, User>();
+        this.users = new LinkedList<User>();
         this.bankService = new BankService();
     }
 
     /**
      * Register a user account
      * @param user The user account to register
-     * @throws CannotRegisterUserException Exception thrown if user cannot be registered
+     * @throws RegisterUserException Exception thrown if user cannot be registered
      */
-    public void registerUser(User user) throws CannotRegisterUserException {
-        if(users.containsKey(user.getEmail())) {
-            throw new CannotRegisterUserException("Email address already exists");
+    public void registerUser(User user) throws RegisterUserException {
+        if(getRegisteredUser(user.getEmail()) != null) {
+            throw new RegisterUserException("Email address already exists");
         }
 
         if(user.getFirstName() == null || user.getFirstName().length() == 0
                 || user.getLastName() == null || user.getLastName().length() == 0) {
-            throw new CannotRegisterUserException("User must have a first and last name");
+            throw new RegisterUserException("User must have a first and last name");
         }
 
         if(!user.getEmail().matches("^.*[@].*[.].*$")) {
-            throw new CannotRegisterUserException(("Email address is not valid"));
+            throw new RegisterUserException(("Email address is not valid"));
         }
 
         if(bankService.isCreditCardValid(user.getCreditCard())) {
-            throw new CannotRegisterUserException(("Credit card is not valid"));
+            throw new RegisterUserException(("Credit card is not valid"));
         }
 
-        users.put(user.getEmail(), user);
+        users.add(user);
     }
 
     /**
@@ -50,6 +52,12 @@ public class AccountService {
      * @return The user or null, if the email does not belong to a registered user
      */
     public User getRegisteredUser(String email) {
-        return users.get(email);
+        for(int i = 1; i < users.size(); i++) {
+            if(users.get(i).getEmail().equalsIgnoreCase(email)) {
+                return users.get(i);
+            }
+        }
+
+        return null;
     }
 }
