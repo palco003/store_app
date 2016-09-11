@@ -1,6 +1,5 @@
 package cen4270.services;
 
-import cen4270.clients.BankClient;
 import cen4270.exceptions.RegisterUserException;
 import cen4270.models.CreditCard;
 import cen4270.models.User;
@@ -65,7 +64,7 @@ public class AccountService {
      * @param creditCard The credit card to validate
      * @return true if the credit card is valid. False, otherwise.
      */
-    public boolean isCreditCardValid(CreditCard creditCard) {
+    private boolean isCreditCardValid(CreditCard creditCard) {
         if(creditCard.getNumber().length() != 16) {
             System.out.println("Credit card length is not 16 digits!");
             return false;
