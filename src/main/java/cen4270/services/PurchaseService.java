@@ -1,5 +1,8 @@
 package cen4270.services;
 
+import cen4270.clients.BankClient;
+import cen4270.clients.InventoryClient;
+import cen4270.clients.NotificationClient;
 import cen4270.exceptions.ChargeCreditCardException;
 import cen4270.exceptions.PurchaseException;
 import cen4270.exceptions.SendEmailException;
@@ -12,15 +15,15 @@ import cen4270.models.User;
  */
 public class PurchaseService {
     private AccountService accountService;
-    private BankService bankService;
-    private InventoryService inventoryService;
-    private NotificationService notificationService;
+    private BankClient bankClient;
+    private InventoryClient inventoryClient;
+    private NotificationClient notificationClient;
 
-    public PurchaseService(AccountService accountService, BankService bankService, InventoryService inventoryService, NotificationService notificationService) {
+    public PurchaseService(AccountService accountService, BankClient bankClient, InventoryClient inventoryClient, NotificationClient notificationClient) {
         this.accountService = accountService;
-        this.bankService = bankService;
-        this.inventoryService = inventoryService;
-        this.notificationService = notificationService;
+        this.bankClient = bankClient;
+        this.inventoryClient = inventoryClient;
+        this.notificationClient = notificationClient;
     }
 
     /**
@@ -36,23 +39,25 @@ public class PurchaseService {
             throw new PurchaseException("User does not exist");
         }
 
-        Item item = inventoryService.getItem(itemId);
+        Item item = inventoryClient.getItem(itemId);
 
         if(item == null) {
             throw new PurchaseException("Item does not exist");
         }
 
         int totalPrice = calculatePrice(user, item);
-        bankService.chargeCreditCard(user.getCreditCard(), totalPrice);
+        bankClient.chargeCreditCard(user.getCreditCard(), totalPrice);
 
-        notificationService.sendEmail(new Email(
+        item.setInventoryCount(item.getInventoryCount() - quantity);
+
+        notificationClient.sendEmail(new Email(
                 user.getEmail(),
                 "Thank you for your purchase of " + item.getName() + "!",
-                "Your ordered has been confirmed and will ship as soon as possible"
+                "Your ordered has been confirmed and will ship as soon as possible."
         ));
     }
 
-    private int calculatePrice(User user, Item item) throws PurchaseException {
+    public int calculatePrice(User user, Item item) throws PurchaseException {
         int totalPrice = item.getPrice();
         int shippingCost = 0;
         int tax = 0;

@@ -1,4 +1,4 @@
-package cen4270.services;
+package cen4270.clients;
 
 import cen4270.exceptions.SendEmailException;
 import cen4270.models.Email;
@@ -6,7 +6,7 @@ import cen4270.models.Email;
 /**
  * This service is used to send emails
  */
-public class NotificationService {
+public class NotificationClient {
     /**
      * Sends an email
      * @param email The email to send
@@ -14,6 +14,10 @@ public class NotificationService {
      */
     public void sendEmail(Email email) throws SendEmailException {
         System.out.println("Sending email...");
+
+        System.out.println("To: " + email.getTo());
+        System.out.println("Subject: " + email.getTitle());
+        System.out.println("Message: " + email.getMessage());
 
         try {
             // The following sleep is used to simulate the time taken to
