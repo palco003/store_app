@@ -13,6 +13,12 @@ import java.util.List;
  */
 public class AccountService {
     private List<User> users;
+    private User user;
+
+    public void setUser(User user){
+        this.user = user;
+        users.add(user);
+    }
 
     public AccountService() {
         this.users = new LinkedList<User>();
@@ -50,7 +56,7 @@ public class AccountService {
      * @return The user or null, if the email does not belong to a registered user
      */
     public User getRegisteredUser(String email) {
-        for(int i = 0; i < users.size()-1; i++) {
+        for(int i = 0; i < users.size(); i++) {
             if(users.get(i).getEmail().equalsIgnoreCase(email)) {
                 return users.get(i);
             }
@@ -70,12 +76,12 @@ public class AccountService {
             return false;
         }
 
-        if(creditCard.getNumber().matches("\\[0-9\\]\\+$")) {
+        if(!creditCard.getNumber().matches("\\d+")) {
             System.out.println("Credit card number must only consist of numbers");
             return false;
         }
 
-        if(creditCard.getExpirationDate().after(new Date())) {
+        if(!creditCard.getExpirationDate().after(new Date())) {
             System.out.println("Credit card is expired");
             return false;
         }

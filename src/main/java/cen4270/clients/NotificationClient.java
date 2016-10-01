@@ -6,7 +6,7 @@ import cen4270.models.Email;
 /**
  * This service is used to send emails
  */
-public class NotificationClient {
+public class NotificationClient implements NotificationClientInterface{
     /**
      * Sends an email
      * @param email The email to send

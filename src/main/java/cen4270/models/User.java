@@ -69,4 +69,16 @@ public class User {
     public void setPremiumUser(boolean premiumUser) {
         isPremiumUser = premiumUser;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", creditCard=" + creditCard +
+                ", region=" + region +
+                ", isPremiumUser=" + isPremiumUser +
+                '}';
+    }
 }

@@ -6,7 +6,7 @@ import cen4270.models.CreditCard;
 /**
  * This service provides functionality to process transactions
  */
-public class BankClient {
+public class BankClient implements BankClientInterface{
     /**
      * Charges a credit card
      * @param creditCard The credit card to charge

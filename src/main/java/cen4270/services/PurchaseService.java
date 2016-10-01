@@ -1,8 +1,6 @@
 package cen4270.services;
 
-import cen4270.clients.BankClient;
-import cen4270.clients.InventoryClient;
-import cen4270.clients.NotificationClient;
+import cen4270.clients.*;
 import cen4270.exceptions.ChargeCreditCardException;
 import cen4270.exceptions.PurchaseException;
 import cen4270.exceptions.SendEmailException;
@@ -14,18 +12,24 @@ import cen4270.models.User;
  * This service is used to make purchases
  */
 public class PurchaseService {
-    private AccountService accountService;
-    private BankClient bankClient;
-    private InventoryClient inventoryClient;
-    private NotificationClient notificationClient;
+    private AccountServiceInterface accountService;
+    private BankClientInterface bankClient;
+    private InventoryClientInterface inventoryClient;
+    private NotificationClientInterface notificationClient;
 
-    public PurchaseService(AccountService accountService, BankClient bankClient, InventoryClient inventoryClient, NotificationClient notificationClient) {
+    public PurchaseService(AccountServiceInterface accountService,
+                           BankClientInterface bankClient,
+                           InventoryClientInterface inventoryClient,
+                           NotificationClientInterface notificationClient) {
         this.accountService = accountService;
         this.bankClient = bankClient;
         this.inventoryClient = inventoryClient;
         this.notificationClient = notificationClient;
     }
 
+    public void setNotificationClient(NotificationClientInterface notificationClient) {
+        this.notificationClient = notificationClient;
+    }
     /**
      * Purchase an item
      * @param userEmail The email of the user making the purchase
@@ -38,7 +42,6 @@ public class PurchaseService {
         if(user == null) {
             throw new PurchaseException("User does not exist");
         }
-
         Item item = inventoryClient.getItem(itemId);
 
         if(item == null) {
@@ -46,6 +49,7 @@ public class PurchaseService {
         }
 
         int totalPrice = calculatePrice(user, item);
+
         bankClient.chargeCreditCard(user.getCreditCard(), totalPrice);
 
         item.setInventoryCount(item.getInventoryCount() - quantity);

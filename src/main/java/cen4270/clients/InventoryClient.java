@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * This service is used to retrieve items from the store's inventory
  */
-public class InventoryClient {
+public class InventoryClient implements InventoryClientInterface{
     /**
      * The following map is used to simulate a database. A real implementation would
      * establish a connection to a database, like MySQL.
@@ -45,7 +45,7 @@ public class InventoryClient {
             e.printStackTrace();
         }
 
-        System.out.println("... Retuning item: " + item);
+        System.out.println("... Returning item: " + item);
 
         return item;
     }

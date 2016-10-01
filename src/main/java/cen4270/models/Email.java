@@ -36,4 +36,13 @@ public class Email {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "to='" + to + '\'' +
+                ", title='" + title + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
